@@ -1,0 +1,242 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Design tokens
+   A stationery palette: paper, pen ink, highlighter, correction coral.
+   --------------------------------------------------------------------------- */
+:root,
+.light {
+  --paper: #fbf9f4;
+  --surface: #ffffff;
+  --raised: #f4f1e9;
+  --ink: #171630;
+  --muted: #5f5d76;
+  --line: #e6e1d4;
+  --pen: #2f3ae0;
+  --pen-soft: #e8e9ff;
+  --highlight: #ffd84d;
+  --coral: #f2594b;
+  --mint: #1f9d6d;
+  --ruled: rgba(47, 58, 224, 0.07);
+  --mint-tint: #e6f7ef;
+  --coral-tint: #fdeae7;
+}
+
+.dark {
+  --paper: #111120;
+  --surface: #191a2b;
+  --raised: #212239;
+  --ink: #f1efe9;
+  --muted: #a6a4bd;
+  --line: #2e3048;
+  --pen: #8b93ff;
+  --pen-soft: #23264a;
+  --highlight: #ffd84d;
+  --coral: #ff7d70;
+  --mint: #45cf9b;
+  --ruled: rgba(139, 147, 255, 0.08);
+  --mint-tint: #16322b;
+  --coral-tint: #3a2523;
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Bricolage Grotesque', Georgia, serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--pen);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--highlight);
+  color: #14142b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    background-color: var(--surface);
+    @apply rounded-card border shadow-card;
+  }
+
+  .card-quiet {
+    background-color: var(--raised);
+    @apply rounded-card border;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill border border-transparent px-5 py-2.5 text-[15px] font-semibold transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-55;
+  }
+
+  .btn-primary {
+    background-color: var(--pen);
+    @apply text-white hover:brightness-110;
+  }
+
+  .btn-secondary {
+    background-color: var(--surface);
+    color: var(--ink);
+    @apply border hover:border-pen;
+  }
+
+  .btn-ghost {
+    color: var(--muted);
+    @apply hover:text-ink;
+  }
+
+  .btn-highlight {
+    background-color: var(--highlight);
+    @apply text-[#14142b] hover:brightness-105;
+  }
+
+  .btn-sm {
+    @apply px-3.5 py-1.5 text-sm;
+  }
+
+  .field {
+    background-color: var(--surface);
+    color: var(--ink);
+    @apply w-full rounded-xl border px-3.5 py-2.5 text-[15px] transition-colors placeholder:text-muted focus:border-pen focus:outline-none;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-pill border px-3 py-1 text-sm font-semibold transition-colors;
+  }
+
+  .chip-active {
+    background-color: var(--pen);
+    border-color: var(--pen);
+    @apply text-white;
+  }
+
+  /* Ruled-notebook backdrop used behind the hero and a few empty states. */
+  .ruled {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 33px,
+      var(--ruled) 33px,
+      var(--ruled) 34px
+    );
+  }
+
+  .marker {
+    background-image: linear-gradient(to top, var(--highlight) 0%, var(--highlight) 38%, transparent 38%);
+    padding-inline: 2px;
+  }
+
+  .prose-study {
+    @apply text-[17px] leading-relaxed;
+  }
+  .prose-study h1 {
+    @apply mb-3 mt-1 text-3xl;
+  }
+  .prose-study h2 {
+    @apply mb-2 mt-7 text-xl;
+  }
+  .prose-study h3 {
+    @apply mb-1.5 mt-5 text-lg font-semibold;
+  }
+  .prose-study p {
+    @apply my-3;
+  }
+  .prose-study ul {
+    @apply my-3 list-disc space-y-1.5 pl-5;
+  }
+  .prose-study ol {
+    @apply my-3 list-decimal space-y-1.5 pl-5;
+  }
+  .prose-study li::marker {
+    color: var(--pen);
+  }
+  .prose-study blockquote {
+    border-left: 3px solid var(--highlight);
+    background-color: var(--raised);
+    @apply my-4 rounded-r-xl py-2 pl-4 pr-3 text-[15px];
+  }
+  .prose-study blockquote p {
+    @apply my-1;
+  }
+  .prose-study code {
+    background-color: var(--raised);
+    @apply rounded px-1.5 py-0.5 font-mono text-[14px];
+  }
+  .prose-study pre {
+    background-color: var(--raised);
+    @apply my-4 overflow-x-auto rounded-xl p-4;
+  }
+  .prose-study table {
+    @apply my-4 w-full border-collapse text-left text-[15px];
+  }
+  .prose-study th,
+  .prose-study td {
+    @apply border px-3 py-2;
+  }
+  .prose-study a {
+    color: var(--pen);
+    @apply underline underline-offset-2;
+  }
+  .prose-study strong {
+    @apply font-semibold;
+  }
+  .prose-study hr {
+    @apply my-6 border-t;
+  }
+  .prose-study input[type='checkbox'] {
+    @apply mr-2 align-middle;
+  }
+
+  .scroll-slim::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  .scroll-slim::-webkit-scrollbar-thumb {
+    background-color: var(--line);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+}
